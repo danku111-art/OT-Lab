@@ -1,0 +1,12 @@
+{
+  "name": "otlab-hmi",
+  "private": true,
+  "description": "Kod TypeScript ekranu HMI. Wynik kompilacji trafia do ../Gateway/wwwroot/app.js.",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.0"
+  }
+}

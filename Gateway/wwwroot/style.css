@@ -1,0 +1,179 @@
+:root {
+  --bg: #171b20;
+  --card: #222830;
+  --line: #343c46;
+  --text: #dde3ea;
+  --muted: #8a96a3;
+  --green: #3fb950;
+  --amber: #d29922;
+  --red: #f0483e;
+  --blue: #58a6ff;
+  --off: #46505c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.4 "Segoe UI", system-ui, sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+h1 { margin: 0; font-size: 20px; }
+h1 span { color: var(--muted); font-weight: 400; margin-left: 8px; }
+h2 { margin: 0 0 12px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+h2 small { text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 8px; }
+a { color: var(--blue); }
+
+/* Wskaźniki łączności i lampki: szare = brak danych / nieaktywne */
+.links { display: flex; gap: 18px; }
+.link, .lamp { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); }
+.link i, .lamp i { width: 12px; height: 12px; border-radius: 50%; background: var(--off); }
+.link.up { color: var(--text); }
+.link.up i { background: var(--green); }
+.link.down i { background: var(--red); }
+
+.alarm {
+  margin: 14px 20px 0;
+  padding: 12px 16px;
+  border-radius: 6px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 600;
+  font-size: 17px;
+}
+.alarm.warn { background: var(--amber); color: #1b1300; }
+
+main {
+  display: grid;
+  grid-template-columns: 300px minmax(380px, 1fr) 280px;
+  gap: 14px;
+  padding: 14px 20px 24px;
+}
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.log-card { grid-column: 1 / -1; }
+
+/* Silnik */
+#motor { display: block; width: 100%; max-width: 260px; margin: 0 auto; }
+.m-base, .m-shaft, .m-coupling { fill: #56616e; }
+.m-body { fill: #3a4450; stroke: #6b7786; stroke-width: 2; }
+.m-fins line { stroke: #56616e; stroke-width: 3; }
+.m-rotor { fill: #2a313a; stroke: #8a96a3; stroke-width: 2; }
+#rotor line { stroke: #8a96a3; stroke-width: 2; }
+.m-mark { fill: var(--blue); }
+
+.state {
+  margin: 8px 0 12px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  background: var(--off);
+}
+.state.s-running { background: var(--green); color: #04210b; }
+.state.s-starting, .state.s-braking { background: var(--amber); color: #1b1300; }
+.state.s-estop, .state.s-fault { background: var(--red); color: #fff; }
+
+.lamps { display: flex; justify-content: space-between; }
+.lamp.on { color: var(--text); }
+#lamp-run.on i { background: var(--green); box-shadow: 0 0 8px var(--green); }
+#lamp-estop.on i, #lamp-fault.on i { background: var(--red); box-shadow: 0 0 8px var(--red); }
+
+/* Wskaźniki */
+.gauges { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.gauge { text-align: center; }
+.gauge svg { width: 100%; max-width: 230px; }
+.g-track, .g-value { fill: none; stroke-width: 16; stroke-linecap: butt; }
+.g-track { stroke: var(--off); }
+.g-value { stroke: var(--blue); stroke-dasharray: 0 252; }
+.g-value.hot { stroke: var(--red); }
+.g-mark { stroke: var(--text); stroke-width: 3; }
+.g-limit { stroke: var(--red); }
+.g-number { margin-top: -6px; color: var(--muted); }
+.g-number b { font-size: 30px; color: var(--text); font-variant-numeric: tabular-nums; }
+.g-caption { color: var(--muted); font-size: 13px; }
+
+#chart { width: 100%; height: 150px; margin-top: 12px; background: #1b2026; border-radius: 6px; }
+.legend { display: flex; gap: 16px; color: var(--muted); font-size: 13px; margin-top: 4px; }
+.legend span:last-child { margin-left: auto; }
+.l-rpm::before, .l-temp::before { content: ""; display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: middle; }
+.l-rpm::before { background: var(--blue); }
+.l-temp::before { background: var(--amber); }
+
+/* Sterowanie */
+button {
+  font: inherit;
+  font-weight: 600;
+  color: var(--text);
+  background: #3a4450;
+  border: 1px solid #56616e;
+  border-radius: 6px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { filter: brightness(1.15); }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+
+.buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.b-start { background: #1f6f33; border-color: var(--green); }
+.b-estop {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: 18px auto;
+  border-radius: 50%;
+  background: var(--red);
+  border: 10px solid #e8c530;
+  color: #fff;
+  font-size: 20px;
+}
+
+.speed label { display: block; color: var(--muted); font-size: 13px; }
+.speed input[type=range] { width: 100%; }
+.speed-row { display: flex; align-items: center; gap: 8px; }
+.speed input[type=number] {
+  width: 90px;
+  font: inherit;
+  color: var(--text);
+  background: #1b2026;
+  border: 1px solid #56616e;
+  border-radius: 6px;
+  padding: 8px;
+}
+.speed-row span { color: var(--muted); }
+.speed-row button { margin-left: auto; padding: 8px 14px; }
+
+.hint { color: var(--muted); font-size: 13px; margin: 12px 0 0; }
+
+/* Dziennik */
+.log-scroll { max-height: 320px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 6px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th { position: sticky; top: 0; background: #2b323b; color: var(--muted); font-weight: 600; font-size: 13px; }
+td.r-sent { color: var(--green); }
+td.r-error, td.r-rejected { color: var(--red); }
+td.c-estop { color: var(--red); font-weight: 600; }
+td.muted { color: var(--muted); }
+
+@media (max-width: 1050px) {
+  main { grid-template-columns: 1fr 1fr; }
+  main > .card:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+}
+
+@media (max-width: 640px) {
+  main { grid-template-columns: 1fr; }
+  main > .card:nth-child(2) { grid-row: auto; }
+}
