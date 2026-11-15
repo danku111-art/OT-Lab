@@ -60,7 +60,8 @@ main {
   padding: 14px 20px 24px;
 }
 
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+/* min-width: 0 pozwala kartom zwęzić się poniżej szerokości wykresu (bez poziomego paska) */
+.card { min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
 .log-card { grid-column: 1 / -1; }
 
 /* Silnik */
